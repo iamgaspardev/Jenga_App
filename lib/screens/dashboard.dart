@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jenga_app/common_component/top_bar.dart';
+import 'package:jenga_app/screens/create_project_form.dart';
+import 'package:jenga_app/screens/formfields.dart';
 
 class DashboardsCreen extends StatefulWidget {
   const DashboardsCreen({super.key});
@@ -44,31 +47,80 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 44,
+              height: 10,
             ),
-            _headerView(),
+            // _headerView(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 22.0, right: 18),
+                  child: Text(
+                    'Projects Lists ',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color.fromARGB(255, 119, 119, 119),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30.0, right: 18),
+                  child: MaterialButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProjectCreationForm()),
+                      );
+                    },
+                    color: Color.fromARGB(255, 12, 184, 135),
+                    child: const Text(
+                      "Add Project",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Divider(),
             const SizedBox(
-              height: 5,
+              height: 10,
             ),
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0, right: 12),
+              child: _menuList(),
+            ),
+            Divider(),
             const Padding(
-              padding: EdgeInsets.only(left: 30.0, right: 18),
+              padding: EdgeInsets.only(left: 18.0, right: 18, top: 10),
               child: Text(
-                'Projects Lists ',
+                'Completed Projects ',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 17,
                   color: Color.fromARGB(255, 119, 119, 119),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0, right: 18),
-              child: _menuList(),
+            Divider(),
+            const Padding(
+              padding: EdgeInsets.only(left: 10.0, right: 10),
+              child: CardList(),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 10.0, right: 10),
+              child: CardList(),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 10.0, right: 10),
+              child: CardList(),
             ),
           ],
         ),
@@ -84,15 +136,29 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 6,
-        mainAxisSpacing: 6,
+        mainAxisSpacing: 4,
         childAspectRatio: 1.6,
       ),
       itemBuilder: (BuildContext context, int index) {
         return GridTile(
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: items[index]['id'] == 0 ? const Color.fromARGB(221, 85, 194, 134) : items[index]['id'] == 1 ? const Color.fromARGB(255, 228, 18, 18): items[index]['id'] == 2 ? const Color.fromARGB(255, 228, 154, 18): const Color.fromARGB(255, 167, 151, 151),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  items[index]['id'] == 0
+                      ? Colors.blueGrey
+                      : items[index]['id'] == 1
+                          ? Colors.greenAccent
+                          : items[index]['id'] == 2
+                              ? Colors.blueAccent
+                              : Colors.white,
+                  Colors.blueGrey,
+                ],
+                stops: [0.0, 1.0],
+              ),
+              borderRadius: BorderRadius.circular(5),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -102,7 +168,8 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     '${items[index]['subtitle']}',
-                    style: const TextStyle(fontWeight: FontWeight.normal, color: Colors.white70),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white70),
                   ),
                 )
               ],
@@ -170,6 +237,93 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
                 )),
           )
         ],
+      ),
+    );
+  }
+}
+
+class ListViewHome extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(8),
+      children: const <Widget>[
+        Card(
+            child: ListTile(
+                title: Text("Battery Full"),
+                subtitle: Text("The battery is full."),
+                leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://images.unsplash.com/photo-1547721064-da6cfb341d50")),
+                trailing: Icon(Icons.star))),
+        Card(
+            child: ListTile(
+                title: Text("Anchor"),
+                subtitle: Text("Lower the anchor."),
+                leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://miro.medium.com/fit/c/64/64/1*WSdkXxKtD8m54-1xp75cqQ.jpeg")),
+                trailing: Icon(Icons.star))),
+        Card(
+            child: ListTile(
+                title: Text("Alarm"),
+                subtitle: Text("This is the time."),
+                leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://miro.medium.com/fit/c/64/64/1*WSdkXxKtD8m54-1xp75cqQ.jpeg")),
+                trailing: Icon(Icons.star))),
+        Card(
+            child: ListTile(
+                title: Text("Ballot"),
+                subtitle: Text("Cast your vote."),
+                leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://miro.medium.com/fit/c/64/64/1*WSdkXxKtD8m54-1xp75cqQ.jpeg")),
+                trailing: Icon(Icons.star)))
+      ],
+    );
+  }
+}
+
+class CardList extends StatelessWidget {
+  const CardList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Card(
+        color: Colors.white70,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const ListTile(
+              leading: Icon(Icons.abc),
+              title: Text('Makala Constructions'),
+              subtitle: Text('Active Projects Date: July,03 2023'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                TextButton(
+                  child: const Text('View'),
+                  onPressed: () {
+                     Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditableTable()),
+                      );
+                  },
+                ),
+                const SizedBox(width: 8),
+                TextButton(
+                  child: const Text('Delete'),
+                  onPressed: () {/* ... */},
+                ),
+                const SizedBox(width: 8),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
