@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:jenga_app/screens/dashboard.dart';
 
+import '../services/service.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -28,6 +30,25 @@ class _LoginScreenState extends State<LoginScreen> {
       return 'Please enter your password';
     }
     return null;
+  }
+
+  void _handleLogin() async {
+    if (_formKey.currentState!.validate()) {
+      // Form is valid, proceed with login
+      String username = _usernameController.text;
+      String password = _passwordController.text;
+
+      Services services = Services();
+      bool loginSuccessful = await services.signin(username, password);
+
+      if (loginSuccessful) {
+        // Navigate to the dashboard if login is successful
+        Navigator.pushReplacementNamed(context, '/dashboard');
+      } else {
+        // Handle login failure, show an error message or do something else
+        print('Login failed. Please check your credentials.');
+      }
+    }
   }
 
   @override
@@ -79,8 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 16),
                           child: TextFormField(
                             controller: _usernameController,
                             validator: _validateUsername,
@@ -92,20 +113,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(4)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
                                 borderSide: BorderSide(
                                     width: 1,
                                     color: Color.fromARGB(255, 255, 255, 255)),
                               ),
                               hintStyle: TextStyle(
-                                  fontSize: 16, color: Color.fromARGB(255, 255, 255, 255)),
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 255, 255, 255)),
                               hintText: 'Enter Username',
                             ),
                           ),
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 16),
                           child: TextFormField(
                             controller: _passwordController,
                             validator: _validatePassword,
@@ -114,22 +137,26 @@ class _LoginScreenState extends State<LoginScreen> {
                               fillColor: Colors.white,
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Color.fromARGB(221, 255, 255, 255))),
+                                      color:
+                                          Color.fromARGB(221, 255, 255, 255))),
                               disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(4)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
                                 borderSide: BorderSide(
                                     width: 1,
                                     color: Color.fromARGB(255, 255, 255, 255)),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(4)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
                                 borderSide: BorderSide(
                                     width: 1,
                                     color: Color.fromARGB(255, 255, 255, 255)),
                               ),
                               hintText: 'Enter Password',
                               hintStyle: TextStyle(
-                                  fontSize: 16, color: Color.fromARGB(255, 255, 255, 255)),
+                                  fontSize: 16,
+                                  color: Color.fromARGB(255, 255, 255, 255)),
                             ),
                           ),
                         ),
@@ -143,12 +170,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: MaterialButton(
                                 minWidth: 300,
                                 color: const Color.fromARGB(221, 255, 255, 255),
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    // Form is valid, proceed to the dashboard
-                                    Navigator.pushReplacementNamed(context, '/dashboard');
-                                  }
-                                },
+                                onPressed:
+                                    _handleLogin, // Use the new function for login handling
                                 child: const Text(
                                   'Login',
                                   style: TextStyle(

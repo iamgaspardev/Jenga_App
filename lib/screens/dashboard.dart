@@ -143,22 +143,8 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
         return GridTile(
           child: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  items[index]['id'] == 0
-                      ? Colors.blueGrey
-                      : items[index]['id'] == 1
-                          ? Colors.greenAccent
-                          : items[index]['id'] == 2
-                              ? Colors.blueAccent
-                              : Colors.white,
-                  Colors.blueGrey,
-                ],
-                stops: [0.0, 1.0],
-              ),
-              borderRadius: BorderRadius.circular(5),
+              color: Color.fromARGB(255, 158, 209, 156),
+              borderRadius: BorderRadius.circular(15),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,

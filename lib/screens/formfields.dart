@@ -54,7 +54,7 @@ class _EditableTableState extends State<EditableTable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Fill All Requirenments Needed',style: TextStyle(fontSize: 18),),
+        title: const Text('Fill All Requirenments Needed',style: TextStyle(fontSize: 18)),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
