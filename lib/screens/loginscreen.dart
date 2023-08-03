@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -42,10 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
       bool loginSuccessful = await services.signin(username, password);
 
       if (loginSuccessful) {
-        // Navigate to the dashboard if login is successful
         Navigator.pushReplacementNamed(context, '/dashboard');
       } else {
-        // Handle login failure, show an error message or do something else
         print('Login failed. Please check your credentials.');
       }
     }
