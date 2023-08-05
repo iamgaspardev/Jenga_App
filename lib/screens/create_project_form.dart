@@ -53,7 +53,7 @@ class _ProjectCreationFormState extends State<ProjectCreationForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -196,7 +196,7 @@ class _ProjectCreationFormState extends State<ProjectCreationForm> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 150, // Set the desired width of the button
                       child: ElevatedButton(
                         onPressed: _saveForm,

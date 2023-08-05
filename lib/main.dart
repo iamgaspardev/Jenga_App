@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jenga_app/screens/dashboard.dart';
 import 'package:jenga_app/screens/loginscreen.dart';
-import 'package:jenga_app/screens/upload_pdf.dart';
-
 import 'common_component/app_theme.dart';
 
 void main() {
@@ -20,9 +18,8 @@ class MyApp extends StatelessWidget {
       theme: customAppTheme,
       initialRoute: '/login',
       routes: {
-        '/login' : (context) => const LoginScreen(),
+      '/login' : (context) => const LoginScreen(),
       '/dashboard': (context) => const DashboardsCreen(),
-      '/upload': (context) => const UploadServer(),
     },
       // home: const LoginScreen() ,
     );

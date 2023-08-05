@@ -3,7 +3,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:jenga_app/screens/dashboard.dart';
 
 import '../services/service.dart';
 
@@ -18,6 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isLoading = false;
+  late bool _alert = false;
 
   // Validation functions
   String? _validateUsername(String? value) {
@@ -36,17 +37,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _handleLogin() async {
     if (_formKey.currentState!.validate()) {
-      // Form is valid, proceed with login
+      setState(() {
+        _isLoading = true;
+      });
+
       String username = _usernameController.text;
       String password = _passwordController.text;
-
       Services services = Services();
       bool loginSuccessful = await services.signin(username, password);
+
+      setState(() {
+        _isLoading = false;
+      });
 
       if (loginSuccessful) {
         Navigator.pushReplacementNamed(context, '/dashboard');
       } else {
-        print('Login failed. Please check your credentials.');
+        setState(() {
+                       _alert = true;
+                      });
+        // Navigator.pushReplacementNamed(context, '/login');
       }
     }
   }
@@ -160,28 +170,60 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
+                        _alert
+                            ? const Text(
+                                "Wrong Password or Username!",
+                                style: TextStyle(color: Colors.redAccent),
+                              )
+                            : Container(),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(bottom: 38.0),
+                        //   child: SizedBox(
+                        //     width: 150,
+                        //     height: 45.0,
+                        //     child: ClipRRect(
+                        //       borderRadius: BorderRadius.circular(18),
+                        //       child: MaterialButton(
+                        //         minWidth: 300,
+                        //         color: const Color.fromARGB(221, 255, 255, 255),
+                        //         onPressed: _handleLogin,
+                        //         child: const Text(
+                        //           'Login',
+                        //           style: TextStyle(
+                        //             fontSize: 17,
+                        //             color: Color.fromARGB(221, 236, 51, 51),
+                        //             fontWeight: FontWeight.bold,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // )
                         Padding(
                           padding: const EdgeInsets.only(bottom: 38.0),
                           child: SizedBox(
-                            width: 150,
-                            height: 45.0,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(18),
-                              child: MaterialButton(
-                                minWidth: 300,
-                                color: const Color.fromARGB(221, 255, 255, 255),
-                                onPressed:
-                                    _handleLogin, // Use the new function for login handling
-                                child: const Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    color: Color.fromARGB(221, 236, 51, 51),
-                                    fontWeight: FontWeight.bold,
+                            child: _isLoading
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white70,
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(0),
+                                    child: MaterialButton(
+                                      minWidth: 150,
+                                      color: const Color.fromARGB(
+                                          221, 255, 255, 255),
+                                      onPressed: _handleLogin,
+                                      child: const Text(
+                                        'Login',
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color:
+                                              Colors.blueGrey,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
                           ),
                         )
                       ],

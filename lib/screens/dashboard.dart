@@ -30,24 +30,11 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
     },
   ];
 
-  IconData _getIcon(String iconName) {
-    switch (iconName) {
-      case 'books':
-        return Icons.menu_book;
-      case 'upload':
-        return Icons.cloud_upload;
-      case 'report':
-        return Icons.report;
-      // add more cases for other icon names
-      default:
-        return Icons.error;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -78,10 +65,10 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProjectCreationForm()),
+                            builder: (context) => const ProjectCreationForm()),
                       );
                     },
-                    color: Color.fromARGB(255, 12, 184, 135),
+                    color: const Color.fromARGB(255, 12, 184, 135),
                     child: const Text(
                       "Add Project",
                       style: TextStyle(color: Colors.white),
@@ -90,7 +77,7 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
                 )
               ],
             ),
-            Divider(),
+            const Divider(),
             const SizedBox(
               height: 10,
             ),
@@ -98,7 +85,7 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
               padding: const EdgeInsets.only(left: 12.0, right: 12),
               child: _menuList(),
             ),
-            Divider(),
+            const Divider(),
             const Padding(
               padding: EdgeInsets.only(left: 18.0, right: 18, top: 10),
               child: Text(
@@ -109,7 +96,7 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
                 ),
               ),
             ),
-            Divider(),
+            const Divider(),
             const Padding(
               padding: EdgeInsets.only(left: 10.0, right: 10),
               child: CardList(),
@@ -143,15 +130,29 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
         return GridTile(
           child: Container(
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 158, 209, 156),
+              color: const Color.fromARGB(255, 158, 209, 156),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
+             mainAxisAlignment: MainAxisAlignment.start,
+             crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Padding(
+                  padding: EdgeInsets.only(left:12.0,top:15),
+                  child: Icon(Icons.note_alt,size: 30,color: Colors.white70,),
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(left:12.0,right: 10,top: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Tanload"),
+                      Icon(Icons.arrow_right_alt_sharp,color: Colors.orange,),
+                    ],
+                  ),
+                ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left:12.0),
                   child: Text(
                     '${items[index]['subtitle']}',
                     style: const TextStyle(
@@ -166,69 +167,11 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
     );
   }
 
-  Widget _headerView() {
-    return Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: Row(
-        children: [
-          const Expanded(
-            child: CircleAvatar(
-              backgroundImage: AssetImage("assets/profile.jpeg"),
-              radius: 35,
-            ),
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-          Expanded(
-            flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
-                  text: const TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Gaspar",
-                        style: TextStyle(
-                            color: Color.fromARGB(210, 46, 44, 44),
-                            fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
-                RichText(
-                  text: const TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Good Morning..!",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 173, 132, 132),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 19),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-                alignment: Alignment.topRight,
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Icon(Icons.sort),
-                )),
-          )
-        ],
-      ),
-    );
-  }
 }
 
 class ListViewHome extends StatelessWidget {
+  const ListViewHome({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -296,7 +239,7 @@ class CardList extends StatelessWidget {
                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => EditableTable()),
+                            builder: (context) => const EditableTable()),
                       );
                   },
                 ),
