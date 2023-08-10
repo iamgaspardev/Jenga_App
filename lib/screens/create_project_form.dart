@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:jenga_app/common_component/top_bar.dart';
+
+import '../services/service.dart';
 
 class ProjectCreationForm extends StatefulWidget {
   const ProjectCreationForm({super.key});
@@ -11,7 +14,7 @@ class ProjectCreationForm extends StatefulWidget {
 
 class _ProjectCreationFormState extends State<ProjectCreationForm> {
   final _formKey = GlobalKey<FormState>();
-
+  String? budget;
   String? projectName;
   String? leaderName;
   String? category;
@@ -19,34 +22,60 @@ class _ProjectCreationFormState extends State<ProjectCreationForm> {
   String? startDate;
   String? endDate;
 
-  void _saveForm() {
+  void _saveForm() async {
     if (_formKey.currentState!.validate()) {
-      // Save the form data or perform further actions here
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Confirmation'),
-            content: const Text('Do you want to save this data?'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  // Save the data and close the dialog
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Save'),
-              ),
-              TextButton(
-                onPressed: () {
-                  // Close the dialog without saving
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancel'),
-              ),
-            ],
-          );
-        },
+      _formKey.currentState!.save();
+
+      final service = Services();
+      final success = await service.createProject(
+        projectName!,
+        leaderName!,
+        projectSupervisor!,
+        category!,
+        startDate!,
+        endDate!,
+        budget!,
       );
+
+      if (success) {
+        Navigator.pushReplacementNamed(context, '/dashboard');
+        // showDialog(
+        //   context: context,
+        //   builder: (context) {
+        //     return AlertDialog(
+        //       title: const Text('Success'),
+        //       content: const Text('Project created successfully.'),
+        //       actions: [
+        //         TextButton(
+        //           onPressed: () {
+        //             Navigator.of(context).pop();
+        //           },
+        //           child: const Text('OK'),
+        //         ),
+        //       ],
+        //     );
+        //   },
+        // );
+      
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Failed to create project.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
   }
 
@@ -78,12 +107,17 @@ class _ProjectCreationFormState extends State<ProjectCreationForm> {
                       stops: [0.0, 1.0], // Add stops for each color (optional)
                     ),
                   ),
-
                   child: const Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Please Fill this form to Register Projects",style: TextStyle(fontSize: 20,color: Colors.white70,),)
+                      Text(
+                        "Please Fill this form to Register Projects",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white70,
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -158,6 +192,22 @@ class _ProjectCreationFormState extends State<ProjectCreationForm> {
                   },
                   onSaved: (value) {
                     projectSupervisor = value;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter Budget',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter project budget';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    budget = value;
                   },
                 ),
                 const SizedBox(height: 16),

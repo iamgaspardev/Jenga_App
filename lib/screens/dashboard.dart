@@ -3,6 +3,8 @@ import 'package:jenga_app/common_component/top_bar.dart';
 import 'package:jenga_app/screens/create_project_form.dart';
 import 'package:jenga_app/screens/formfields.dart';
 
+import '../services/service.dart';
+
 class DashboardsCreen extends StatefulWidget {
   const DashboardsCreen({super.key});
 
@@ -11,27 +13,42 @@ class DashboardsCreen extends StatefulWidget {
 }
 
 class _DashboardsCreenState extends State<DashboardsCreen> {
-  List<Map<String, dynamic>> items = [
-    {
-      'id': 0,
-      'icon': 'books',
-      'subtitle': 'Magomeni House',
-    },
-    {
-      'id': 1,
-      'icon': 'upload',
-      'subtitle': 'Mangonjo Road',
-    },
-    {
-      'id': 2,
-      'icon': 'report',
-      'title': 'Item 3',
-      'subtitle': 'Kichacha Shell',
-    },
-  ];
-
+  List items = [];
+  // List<Map<String, dynamic>> items = [
+  //   {
+  //     'id': 0,
+  //     'icon': 'books',
+  //     'subtitle': 'Magomeni House',
+  //   },
+  //   {
+  //     'id': 1,
+  //     'icon': 'upload',
+  //     'subtitle': 'Mangonjo Road',
+  //   },
+  //   {
+  //     'id': 2,
+  //     'icon': 'report',
+  //     'title': 'Item 3',
+  //     'subtitle': 'Kichacha Shell',
+  //   },
+  // ];
 
   @override
+  void initState() {
+    super.initState();
+    _fetchProjects();
+  }
+
+  Future<void> _fetchProjects() async {
+    final service = Services();
+    final data = await service.getProject();
+    print("data projec---------->");
+    print(data['data']);
+    setState(() {
+      items = data['data'] ?? [];
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(),
@@ -134,27 +151,34 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
               borderRadius: BorderRadius.circular(15),
             ),
             child: Column(
-             mainAxisAlignment: MainAxisAlignment.start,
-             crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
-                  padding: EdgeInsets.only(left:12.0,top:15),
-                  child: Icon(Icons.note_alt,size: 30,color: Colors.white70,),
+                  padding: EdgeInsets.only(left: 12.0, top: 15),
+                  child: Icon(
+                    Icons.note_alt,
+                    size: 30,
+                    color: Colors.white70,
+                  ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left:12.0,right: 10,top: 5),
+                 Padding(
+                  padding: EdgeInsets.only(left: 12.0, right: 10, top: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Tanload"),
-                      Icon(Icons.arrow_right_alt_sharp,color: Colors.orange,),
+                      Text('${items[index]['name']}',),
+                      Icon(
+                        Icons.arrow_right_alt_sharp,
+                        color: Colors.orange,
+                      ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left:12.0),
+                  padding: const EdgeInsets.only(left: 12.0),
                   child: Text(
-                    '${items[index]['subtitle']}',
+                    'Budget ${items[index]['budget']}',
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.white70),
                   ),
@@ -166,7 +190,6 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
       },
     );
   }
-
 }
 
 class ListViewHome extends StatelessWidget {
@@ -236,11 +259,11 @@ class CardList extends StatelessWidget {
                 TextButton(
                   child: const Text('View'),
                   onPressed: () {
-                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EditableTable()),
-                      );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EditableTable()),
+                    );
                   },
                 ),
                 const SizedBox(width: 8),
