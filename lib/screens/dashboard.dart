@@ -14,31 +14,13 @@ class DashboardsCreen extends StatefulWidget {
 
 class _DashboardsCreenState extends State<DashboardsCreen> {
   List items = [];
-  // List<Map<String, dynamic>> items = [
-  //   {
-  //     'id': 0,
-  //     'icon': 'books',
-  //     'subtitle': 'Magomeni House',
-  //   },
-  //   {
-  //     'id': 1,
-  //     'icon': 'upload',
-  //     'subtitle': 'Mangonjo Road',
-  //   },
-  //   {
-  //     'id': 2,
-  //     'icon': 'report',
-  //     'title': 'Item 3',
-  //     'subtitle': 'Kichacha Shell',
-  //   },
-  // ];
 
   @override
   void initState() {
     super.initState();
     _fetchProjects();
   }
-
+// https://github.com/trusttechnologytz/Jenga_App.git
   Future<void> _fetchProjects() async {
     final service = Services();
     final data = await service.getProject();
@@ -163,12 +145,12 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
                   ),
                 ),
                  Padding(
-                  padding: EdgeInsets.only(left: 12.0, right: 10, top: 5),
+                  padding: const EdgeInsets.only(left: 12.0, right: 10, top: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('${items[index]['name']}',),
-                      Icon(
+                      const Icon(
                         Icons.arrow_right_alt_sharp,
                         color: Colors.orange,
                       ),
@@ -259,17 +241,15 @@ class CardList extends StatelessWidget {
                 TextButton(
                   child: const Text('View'),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditableTable()),
-                    );
+                   Navigator.pushNamed(context, '/task');
                   },
                 ),
                 const SizedBox(width: 8),
                 TextButton(
-                  child: const Text('Delete'),
-                  onPressed: () {/* ... */},
+                  child: const Text('create'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/create-task');
+                  },
                 ),
                 const SizedBox(width: 8),
               ],

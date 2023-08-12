@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:jenga_app/screens/createtask.dart';
 import 'package:jenga_app/screens/dashboard.dart';
 import 'package:jenga_app/screens/loginscreen.dart';
+import 'package:jenga_app/screens/tasklist.dart';
 import 'common_component/app_theme.dart';
 
 void main() {
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
       routes: {
       '/login' : (context) => const LoginScreen(),
       '/dashboard': (context) => const DashboardsCreen(),
+      '/create-task': (context) => const CreateTask(),
+      '/task': (context) => const TaskPage(),
     },
       // home: const LoginScreen() ,
     );

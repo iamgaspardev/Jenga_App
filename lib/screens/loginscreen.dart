@@ -115,8 +115,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextFormField(
                             controller: _usernameController,
                             validator: _validateUsername,
+                            style: const TextStyle(color: Colors.white),
                             decoration: const InputDecoration(
                               fillColor: Colors.white,
+                              focusColor: Colors.white,
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color.fromARGB(221, 255, 255, 255),
@@ -142,9 +144,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextFormField(
                             controller: _passwordController,
                             validator: _validatePassword,
+                            style: const TextStyle(color: Colors.white),
                             obscureText: true,
                             decoration: const InputDecoration(
                               fillColor: Colors.white,
+                              focusColor: Colors.white,
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color:
@@ -176,29 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: TextStyle(color: Colors.redAccent),
                               )
                             : Container(),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(bottom: 38.0),
-                        //   child: SizedBox(
-                        //     width: 150,
-                        //     height: 45.0,
-                        //     child: ClipRRect(
-                        //       borderRadius: BorderRadius.circular(18),
-                        //       child: MaterialButton(
-                        //         minWidth: 300,
-                        //         color: const Color.fromARGB(221, 255, 255, 255),
-                        //         onPressed: _handleLogin,
-                        //         child: const Text(
-                        //           'Login',
-                        //           style: TextStyle(
-                        //             fontSize: 17,
-                        //             color: Color.fromARGB(221, 236, 51, 51),
-                        //             fontWeight: FontWeight.bold,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // )
+                       
                         Padding(
                           padding: const EdgeInsets.only(bottom: 38.0),
                           child: SizedBox(
