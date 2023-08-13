@@ -29,6 +29,7 @@ class _CreateTaskState extends State<CreateTask> {
 
   TextEditingController taskDescription = TextEditingController();
   TextEditingController workerName = TextEditingController();
+  TextEditingController totalbudget = TextEditingController();
   TextEditingController workerSalary = TextEditingController();
   TextEditingController toolName = TextEditingController();
   TextEditingController toolQuantity = TextEditingController();
@@ -39,7 +40,8 @@ class _CreateTaskState extends State<CreateTask> {
   List<Step> stepList() {
     return [
       Step(
-        isActive: true,
+        isActive: _activeStepIndex == 0,
+        state: _activeStepIndex > 0 ? StepState.complete : StepState.indexed,
         title: const Text('Task'),
         content: Column(
           children: [
@@ -50,11 +52,24 @@ class _CreateTaskState extends State<CreateTask> {
                 labelText: 'Task Description',
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child: TextField(
+                controller: totalbudget,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Total Budget',
+                ),
+              ),
+            ),
           ],
         ),
       ),
       Step(
-        isActive: true,
+        isActive: _activeStepIndex == 1,
+        state: _activeStepIndex > 1
+            ? StepState.complete
+            : (_activeStepIndex == 1 ? StepState.editing : StepState.indexed),
         title: const Text('Workers'),
         content: Column(
           children: [
@@ -83,7 +98,8 @@ class _CreateTaskState extends State<CreateTask> {
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      workers.add(Worker(workerName.text, double.parse(workerSalary.text)));
+                      workers.add(Worker(
+                          workerName.text, double.parse(workerSalary.text)));
                       workerName.clear();
                       workerSalary.clear();
                     });
@@ -111,7 +127,8 @@ class _CreateTaskState extends State<CreateTask> {
                         TableRow(
                           children: [
                             TableCell(child: Text(worker.name)),
-                            TableCell(child: Text(worker.salary.toStringAsFixed(2))),
+                            TableCell(
+                                child: Text(worker.salary.toStringAsFixed(2))),
                           ],
                         ),
                     ],
@@ -122,7 +139,10 @@ class _CreateTaskState extends State<CreateTask> {
         ),
       ),
       Step(
-        isActive: true,
+        isActive: _activeStepIndex == 2,
+        state: _activeStepIndex > 2
+            ? StepState.complete
+            : (_activeStepIndex == 2 ? StepState.editing : StepState.indexed),
         title: const Text('Tools'),
         content: Column(
           children: [
@@ -200,7 +220,8 @@ class _CreateTaskState extends State<CreateTask> {
                           children: [
                             TableCell(child: Text(tool.name)),
                             TableCell(child: Text(tool.quantity.toString())),
-                            TableCell(child: Text(tool.amount.toStringAsFixed(2))),
+                            TableCell(
+                                child: Text(tool.amount.toStringAsFixed(2))),
                           ],
                         ),
                     ],
@@ -211,7 +232,10 @@ class _CreateTaskState extends State<CreateTask> {
         ),
       ),
       Step(
-        isActive: true,
+        isActive: _activeStepIndex == 3,
+        state: _activeStepIndex > 3
+            ? StepState.complete
+            : (_activeStepIndex == 3 ? StepState.editing : StepState.indexed),
         title: const Text('Confirm'),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,7 +261,8 @@ class _CreateTaskState extends State<CreateTask> {
                         TableRow(
                           children: [
                             TableCell(child: Text(worker.name)),
-                            TableCell(child: Text(worker.salary.toStringAsFixed(2))),
+                            TableCell(
+                                child: Text(worker.salary.toStringAsFixed(2))),
                           ],
                         ),
                     ],
@@ -265,7 +290,8 @@ class _CreateTaskState extends State<CreateTask> {
                           children: [
                             TableCell(child: Text(tool.name)),
                             TableCell(child: Text(tool.quantity.toString())),
-                            TableCell(child: Text(tool.amount.toStringAsFixed(2))),
+                            TableCell(
+                                child: Text(tool.amount.toStringAsFixed(2))),
                           ],
                         ),
                     ],
@@ -281,7 +307,7 @@ class _CreateTaskState extends State<CreateTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:const CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: Stepper(
         type: StepperType.horizontal,
         currentStep: _activeStepIndex,
@@ -326,7 +352,8 @@ class _CreateTaskState extends State<CreateTask> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: controlsDetails.onStepContinue,
-                    child: isLastStep ? const Text('Submit') : const Text('Next'),
+                    child:
+                        isLastStep ? const Text('Submit') : const Text('Next'),
                   ),
                 ),
               ],
@@ -337,4 +364,3 @@ class _CreateTaskState extends State<CreateTask> {
     );
   }
 }
-
