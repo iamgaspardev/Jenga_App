@@ -126,46 +126,51 @@ class _DashboardsCreenState extends State<DashboardsCreen> {
         childAspectRatio: 1.6,
       ),
       itemBuilder: (BuildContext context, int index) {
-        return GridTile(
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 158, 209, 156),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 12.0, top: 15),
-                  child: Icon(
-                    Icons.note_alt,
-                    size: 30,
-                    color: Colors.white70,
+       return GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/task');
+          },
+          child: GridTile(
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 158, 209, 156),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 12.0, top: 15),
+                    child: Icon(
+                      Icons.note_alt,
+                      size: 30,
+                      color: Colors.white70,
+                    ),
                   ),
-                ),
-                 Padding(
-                  padding: const EdgeInsets.only(left: 12.0, right: 10, top: 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('${items[index]['name']}',),
-                      const Icon(
-                        Icons.arrow_right_alt_sharp,
-                        color: Colors.orange,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12.0, right: 10, top: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('${items[index]['name']}'),
+                        const Icon(
+                          Icons.arrow_right_alt_sharp,
+                          color: Colors.orange,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 12.0),
-                  child: Text(
-                    'Budget ${items[index]['budget']}',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white70),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12.0),
+                    child: Text(
+                      'Budget ${items[index]['budget']}',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white70),
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -235,25 +240,25 @@ class CardList extends StatelessWidget {
               title: Text('Makala Constructions'),
               subtitle: Text('Active Projects Date: July,03 2023'),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                TextButton(
-                  child: const Text('View'),
-                  onPressed: () {
-                   Navigator.pushNamed(context, '/task');
-                  },
-                ),
-                const SizedBox(width: 8),
-                TextButton(
-                  child: const Text('create'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/create-task');
-                  },
-                ),
-                const SizedBox(width: 8),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: <Widget>[
+            //     TextButton(
+            //       child: const Text('View'),
+            //       onPressed: () {
+            //        Navigator.pushNamed(context, '/task');
+            //       },
+            //     ),
+            //     const SizedBox(width: 8),
+            //     TextButton(
+            //       child: const Text('create'),
+            //       onPressed: () {
+            //         Navigator.pushNamed(context, '/create-task');
+            //       },
+            //     ),
+            //     const SizedBox(width: 8),
+            //   ],
+            // ),
           ],
         ),
       ),
