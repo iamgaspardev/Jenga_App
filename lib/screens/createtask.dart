@@ -95,16 +95,19 @@ class _CreateTaskState extends State<CreateTask> {
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      workers.add(Worker(
-                          workerName.text, double.parse(workerSalary.text)));
-                      workerName.clear();
-                      workerSalary.clear();
-                    });
-                  },
-                  child: const Text('Add Worker'),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        workers.add(Worker(
+                            workerName.text, double.parse(workerSalary.text)));
+                        workerName.clear();
+                        workerSalary.clear();
+                      });
+                    },
+                    child: const Text('Add Worker'),
+                  ),
                 ),
               ],
             ),
@@ -119,16 +122,29 @@ class _CreateTaskState extends State<CreateTask> {
                     children: [
                       const TableRow(
                         children: [
-                          TableCell(child: Text('Name')),
-                          TableCell(child: Text('Salary')),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TableCell(child: Text('Name')),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TableCell(child: Text('Salary')),
+                          ),
                         ],
                       ),
                       for (var worker in workers)
                         TableRow(
+                          
                           children: [
-                            TableCell(child: Text(worker.name)),
-                            TableCell(
-                                child: Text(worker.salary.toStringAsFixed(2))),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TableCell(child: Text(worker.name)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TableCell(
+                                  child: Text(worker.salary.toStringAsFixed(2))),
+                            ),
                           ],
                         ),
                     ],
@@ -210,18 +226,36 @@ class _CreateTaskState extends State<CreateTask> {
                     children: [
                       const TableRow(
                         children: [
-                          TableCell(child: Text('Name')),
-                          TableCell(child: Text('Quantity')),
-                          TableCell(child: Text('Amount')),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TableCell(child: Text('Name')),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TableCell(child: Text('Quantity')),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TableCell(child: Text('Amount')),
+                          ),
                         ],
                       ),
                       for (var tool in tools)
                         TableRow(
                           children: [
-                            TableCell(child: Text(tool.name)),
-                            TableCell(child: Text(tool.quantity.toString())),
-                            TableCell(
-                                child: Text(tool.amount.toStringAsFixed(2))),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TableCell(child: Text(tool.name)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TableCell(child: Text(tool.quantity.toString())),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TableCell(
+                                  child: Text(tool.amount.toStringAsFixed(2))),
+                            ),
                           ],
                         ),
                     ],
@@ -253,16 +287,28 @@ class _CreateTaskState extends State<CreateTask> {
                     children: [
                       const TableRow(
                         children: [
-                          TableCell(child: Text('Name')),
-                          TableCell(child: Text('Salary')),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TableCell(child: Text('Name')),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TableCell(child: Text('Salary')),
+                          ),
                         ],
                       ),
                       for (var worker in workers)
                         TableRow(
                           children: [
-                            TableCell(child: Text(worker.name)),
-                            TableCell(
-                                child: Text(worker.salary.toStringAsFixed(2))),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TableCell(child: Text(worker.name)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TableCell(
+                                  child: Text(worker.salary.toStringAsFixed(2))),
+                            ),
                           ],
                         ),
                     ],
@@ -280,18 +326,36 @@ class _CreateTaskState extends State<CreateTask> {
                     children: [
                       const TableRow(
                         children: [
-                          TableCell(child: Text('Name')),
-                          TableCell(child: Text('Quantity')),
-                          TableCell(child: Text('Amount')),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TableCell(child: Text('Name')),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TableCell(child: Text('Quantity')),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: TableCell(child: Text('Amount')),
+                          ),
                         ],
                       ),
                       for (var tool in tools)
                         TableRow(
                           children: [
-                            TableCell(child: Text(tool.name)),
-                            TableCell(child: Text(tool.quantity.toString())),
-                            TableCell(
-                                child: Text(tool.amount.toStringAsFixed(2))),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TableCell(child: Text(tool.name)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TableCell(child: Text(tool.quantity.toString())),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TableCell(
+                                  child: Text(tool.amount.toStringAsFixed(2))),
+                            ),
                           ],
                         ),
                     ],

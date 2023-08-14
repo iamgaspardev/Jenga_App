@@ -21,6 +21,7 @@ class _TaskPageState extends State<TaskPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 16),
+
             Container(
               height: 80,
               width: 400,
@@ -51,29 +52,82 @@ class _TaskPageState extends State<TaskPage> {
               ),
             ),
             const SizedBox(height: 16),
-            const Icon(
-              Icons.warning,
-              size: 70,
-              color: Color.fromARGB(255, 235, 74, 62),
-            ),
+
             const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text("No Task Created"),
+              padding: EdgeInsets.only(left: 10.0, right: 10),
+              child: CardList(),
             ),
-            SizedBox(
-              width: 150,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/create-task');
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue, // Set the button color to blue
+            const Divider(),
+            const Padding(
+              padding: EdgeInsets.only(left: 10.0, right: 10),
+              child: CardList(),
+            ),
+            const Divider(),
+            // const Icon(
+            //   Icons.warning,
+            //   size: 70,
+            //   color: Color.fromARGB(255, 235, 74, 62),
+            // ),
+            // const Padding(
+            //   padding: EdgeInsets.all(8.0),
+            //   child: Text("No Task Created"),
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SizedBox(
+                  width: 150,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/create-task');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue, // Set the button color to blue
+                      ),
+                      child: const Text('Add more Task'),
+                    ),
+                  ),
                 ),
-                child: const Text('Create Task'),
-              ),
+              ],
             ),
+
             const SizedBox(height: 16),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CardList extends StatelessWidget {
+  const CardList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GestureDetector(
+        onTap: () {
+          // Handle the tap here
+          // You can navigate to a new screen or perform any action you want
+          print('Card clicked');
+        },
+        child: const ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          child: Card(
+            color: Colors.white70,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.abc),
+                  title: Text('Uchimbaji wa Msingi'),
+                  subtitle: Text('Mwana nyamara housi'),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
